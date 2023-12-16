@@ -20,13 +20,14 @@ const app = express()
 
 
 //ROUTES
-app.get('/greeting', (req, res) => {            //route 'greeting'
+//route 'greeting'
+app.get('/greeting', (req, res) => {
     res.send('Hello, stranger');
 });
 
-
+//route with param 'name'
 app.get('/greeting/:name', (req, res) => {
-    const name = req.params.name;               //route with param 'name'
+    const name = req.params.name;
     res.send(`Hello, ${name}! Glad to see you!`)
 });
 
@@ -39,6 +40,15 @@ app.get('/tip/:total/:tipPercentage', (req, res) => {
     res.send(`The tip amount is: ${tipAmount}`);
 });
 
+
+//magic 8 ball question route
+app.get('/magic/:question', (req, res) => {
+    const question = req.params.question;
+    const randomIndex = Math.floor(Math.random() * magic8Responses.length);
+    const magic8Response = magic8Responses[randomIndex];
+
+    res.send(`${question}?<br>${magic8Response}`);
+})
 
 
 app.listen(port, () => {
